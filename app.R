@@ -8,16 +8,24 @@ ui <- shinyUI(ui = {
   pageWithSidebar(
     headerPanel("Maze"),
     sidebarPanel(
-      sliderInput("row", label = "rows:", min = 2, max = 10, value = 3, step = 1),
-      sliderInput("col", label = "cols:", min = 2, max = 10, value = 3, step = 1),
+      sliderInput("row", label = "rows:", min = 2, max = 50, value = 10, step = 1),
+      sliderInput("col", label = "cols:", min = 2, max = 50, value = 10, step = 1),
       selectInput("weightfunc", "weight function:", c("runif", "rnorm"), selected = "runif"),
+      sliderInput("wall.size", label = "wall.size", min = 1, max = 10, value = 5, step = 1),
       sliderInput("vertex.size", label = "vertex.size", min = 1, max = 50, value = 20, step = 1),
       selectInput("vertex.color", "vertex.color:", c("black", "steelblue", "white"), selected = "black"),
       sliderInput("vertex.label.cex", label = "vertex.label.cex", min = 0.1, max = 2, value = 1, step = .1),
       selectInput("vertex.label.color", "vertex.label.color:", c("black", "red", "white"), selected = "white")
     ),
     mainPanel(
-      plotOutput("maze", width = "600px", height = "600px")
+      tabsetPanel(
+        tabPanel("Maze",
+                 plotOutput("maze", width = "600px", height = "600px")
+                 ),
+        tabPanel("Grid"),
+        tabPanel("MST"),
+        tabPanel("About")
+      )
     )
   )
 })
@@ -43,7 +51,7 @@ server <- shinyServer(func = function(input, output, server) {
 
   output$maze <- renderPlot({
     g <- maze()
-    plotMaze(g, nrow = input$row, ncol = input$col)
+    plotMaze(g, nrow = input$col, ncol = input$row, lwd = input$wall.size)
     # plot(g,
     #      edge.width = 5,
     #      vertex.size = input$vertex.size,
