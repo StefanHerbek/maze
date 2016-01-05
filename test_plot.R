@@ -19,6 +19,9 @@ nc <- 20
 nr <- 20
 nc <- 20
 
+nr <- 50
+nc <- 50
+
 g <- graph.lattice(c(nr,nc))
 l <- layout.grid(g, width = nr, height = nc)
 plot(g, layout = l)
@@ -29,6 +32,8 @@ plot(s, layout = l)
 plotMaze(s, nrow = nc, ncol = nr)
 plotMaze(s, nrow = nc, ncol = nr, wall.size = 1)
 
+get.shortest.paths(s, 1, 9)$vpath
+plotMaze(s, nrow = nc, ncol = nr, wall.size = 1, tile.show = TRUE, tile.size = .1, path.show = TRUE)
 
 ##### test
 plot(0, xlim = c(0,nc + 1), ylim = c(0,nr + 1), xlab = "j", ylab = "i")
