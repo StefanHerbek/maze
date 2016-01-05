@@ -1,5 +1,5 @@
 
-plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white") {
+plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", path.show = FALSE, path.start = 1, path.end = nrow*ncol) {
   nc <- ncol
   nr <- nrow
   d <- list()
@@ -36,5 +36,24 @@ plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.siz
     }
   }
   d <- do.call(rbind, d)
-  ggplot(d) + geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) + geom_segment(aes(x = x0, y = y0, xend = x1, yend = y1), size = d$size, lineend = "square") + xlim(0,nc + 1) + ylim(0,nr + 1) + theme_void() + guides(size = "none")
+  gg <- ggplot(d) + geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) + geom_segment(aes(x = x0, y = y0, xend = x1, yend = y1), size = d$size, lineend = "square") + xlim(0,nc + 1) + ylim(0,nr + 1) + theme_void() + guides(size = "none")
+
+  if (path.show) {
+    idxs <- get.shortest.paths(g, path.start, path.end)$vpath[[1]]
+    p <- list()
+    for (idx in idxs) {
+      print(idx)
+      ci <- idx %% nc
+      ri <- idx %/% nc + 1
+      if(ci == 0) {
+        ci <- nc
+        ri <- ri - 1
+      }
+      p[[length(p) + 1]] <- data.frame(x = ci, y = ri)
+    }
+    p <- do.call(rbind, p)
+    #print(p)
+    gg <- gg + geom_line(data = p, mapping = aes(x = x, y = y), color = "red", lwd = 5, lineend = "round")
+  }
+  gg
 }
