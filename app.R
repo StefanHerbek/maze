@@ -23,6 +23,9 @@ ui <- shinyUI(ui = {
     mainPanel(
       tabsetPanel(
         tabPanel("Maze",
+                 selectInput("path.start", "Start", choices = 1),
+                 selectInput("path.end", "End", choices = 1),
+                 checkboxInput("path.show", "Show path", value = FALSE),
                  plotOutput("maze", width = "600px", height = "600px")
                  ),
         tabPanel("Graph",
@@ -39,7 +42,7 @@ ui <- shinyUI(ui = {
   )
 })
 
-server <- shinyServer(func = function(input, output, server) {
+server <- shinyServer(func = function(input, output, session) {
   maze <- reactive({
     nr <- input$row
     nc <- input$col
@@ -54,13 +57,19 @@ server <- shinyServer(func = function(input, output, server) {
     w <- wf(ne)
 
     s <- mst(g, weights = w, algorithm = "prim")
-    s$layout <- layout_on_grid(s,width = nr, height = nc)
+    s$layout <- layout_on_grid(s, width = nr, height = nc)
     s
   })
 
   output$maze <- renderPlot({
     g <- maze()
-    plotMaze(g, nrow = input$col, ncol = input$row, wall.size = input$wall.size, tile.color = input$tile.color, tile.show = input$tile.show, tile.size = input$tile.size)
+    plotMaze(g, nrow = input$col, ncol = input$row, wall.size = input$wall.size, tile.color = input$tile.color, tile.show = input$tile.show, tile.size = input$tile.size, path.show = input$path.show, path.start = input$path.start, path.end = input$path.end)
+  })
+
+  observe({
+    n <- input$col*input$row
+    updateSelectInput(session, inputId = "path.start", choices = 1:n, selected = 1)
+    updateSelectInput(session, inputId = "path.end", choices = 1:n, selected = n)
   })
 
   output$graph <- renderPlot({
