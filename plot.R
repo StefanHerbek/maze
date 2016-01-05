@@ -42,7 +42,6 @@ plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.siz
     idxs <- get.shortest.paths(g, path.start, path.end)$vpath[[1]]
     p <- list()
     for (idx in idxs) {
-      print(idx)
       ci <- idx %% nc
       ri <- idx %/% nc + 1
       if(ci == 0) {
