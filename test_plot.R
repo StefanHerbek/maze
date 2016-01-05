@@ -1,5 +1,5 @@
 library(igraph)
-source("plot_maze.R")
+source("plot.R")
 
 nr <- 5
 nc <- 5
@@ -27,7 +27,7 @@ s <- mst(g, weights = rnorm(ecount(g)))
 plot(s, layout = l)
 
 plotMaze(s, nrow = nc, ncol = nr)
-plotMaze(s, nrow = nc, ncol = nr, lwd = 3)
+plotMaze(s, nrow = nc, ncol = nr, wall.size = 1)
 
 
 ##### test
