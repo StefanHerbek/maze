@@ -52,8 +52,7 @@ plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.siz
       p[[length(p) + 1]] <- data.frame(x = ci, y = ri)
     }
     p <- do.call(rbind, p)
-    #print(p)
-    gg <- gg + geom_line(data = p, mapping = aes(x = x, y = y), color = "red", lwd = 5, lineend = "round")
+    gg <- gg + geom_path(data = p, mapping = aes(x = x, y = y), color = "red", lwd = 1, lineend = "round")
   }
   gg
 }
