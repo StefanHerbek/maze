@@ -12,8 +12,10 @@ ui <- shinyUI(ui = {
       sliderInput("col", label = "cols:", min = 2, max = 50, value = 10, step = 1),
       selectInput("weightfunc", "weight function:", c("runif", "rnorm"), selected = "runif"),
       sliderInput("wall.size", label = "wall.size", min = 1.0, max = 10.0, value = 5.0, step = .5),
-      checkboxInput("tile.show", "show tile.show", value = FALSE),
-      sliderInput("tile.size", label = "tile.size", min = 0.1, max = 5, value = 1.0, step = .1),
+      checkboxInput("tile.number.show", "show tile number", value = FALSE),
+      sliderInput("tile.number.size", label = "tile.number.size", min = 0.1, max = 10, value = .1, step = .1),
+      checkboxInput("tile.show", "show tile", value = FALSE),
+      sliderInput("tile.size", label = "tile.size", min = 0.1, max = 5, value = .1, step = .1),
       selectInput("tile.color", "tile.color:", c("white", "grey"), selected = "white"),
       sliderInput("vertex.size", label = "vertex.size", min = 1, max = 50, value = 20, step = 1),
       selectInput("vertex.color", "vertex.color:", c("black", "steelblue", "white"), selected = "black"),
@@ -63,7 +65,20 @@ server <- shinyServer(func = function(input, output, session) {
 
   output$maze <- renderPlot({
     g <- maze()
-    plotMaze(g, nrow = input$col, ncol = input$row, wall.size = input$wall.size, tile.color = input$tile.color, tile.show = input$tile.show, tile.size = input$tile.size, path.show = input$path.show, path.start = input$path.start, path.end = input$path.end)
+    plotMaze(
+      g,
+      nrow = input$col,
+      ncol = input$row,
+      wall.size = input$wall.size,
+      tile.color = input$tile.color,
+      tile.show = input$tile.show,
+      tile.size = input$tile.size,
+      tile.number.show = input$tile.number.show,
+      tile.number.size = input$tile.number.size,
+      path.show = input$path.show,
+      path.start = input$path.start,
+      path.end = input$path.end
+    )
   })
 
   observe({

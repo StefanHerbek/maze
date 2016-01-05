@@ -1,5 +1,5 @@
 
-plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", path.show = FALSE, path.start = 1, path.end = nrow*ncol) {
+plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", tile.number.show = FALSE, tile.number.size = 5, path.show = FALSE, path.start = 1, path.end = nrow*ncol) {
   nc <- ncol
   nr <- nrow
   d <- list()
@@ -37,6 +37,13 @@ plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.siz
   }
   d <- do.call(rbind, d)
   gg <- ggplot(d) + geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) + geom_segment(aes(x = x0, y = y0, xend = x1, yend = y1), size = d$size, lineend = "square") + xlim(0,nc + 1) + ylim(0,nr + 1) + theme_void() + guides(size = "none")
+
+  if (tile.number.show) {
+    d <- expand.grid(x = 1:nc, y = 1:nr)
+    d$index <- 1:(nc * nr)
+    print(d)
+    gg <- gg + geom_text(data = d, mapping = aes(x=x,y=y,label=index), size = tile.number.size)
+  }
 
   if (path.show) {
     idxs <- get.shortest.paths(g, path.start, path.end)$vpath[[1]]
