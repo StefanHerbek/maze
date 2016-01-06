@@ -26,7 +26,7 @@ ui <- shinyUI(ui = {
       ),
       conditionalPanel(condition = "input.tabs == 'Graph'",
                        sliderInput("vertex.size", label = "vertex.size", min = 1, max = 50, value = 15, step = 1),
-                       selectInput("vertex.color", "vertex.color:", c("black", "steelblue", "white"), selected = "black"),
+                       selectInput("vertex.color", "vertex.color:", c("black", "steelblue", "grey"), selected = "black"),
                        sliderInput("vertex.label.cex", label = "vertex.label.cex", min = 0.1, max = 2, value = 1, step = .1),
                        selectInput("vertex.label.color", "vertex.label.color:", c("black", "red", "white"), selected = "white")
                        )
@@ -34,10 +34,12 @@ ui <- shinyUI(ui = {
     mainPanel(
       tabsetPanel(id = "tabs",
         tabPanel("Maze",
-                 plotOutput("maze", width = "600px", height = "600px")
+                 plotOutput("maze", width = "600px", height = "600px"),
+                 downloadButton("maze.down")
                  ),
         tabPanel("Graph",
-                 plotOutput("graph", width = "600px", height = "600px")
+                 plotOutput("graph", width = "600px", height = "600px"),
+                 downloadButton("graph.down")
                  ),
         tabPanel("About",
                  h3("Author"),
@@ -87,6 +89,13 @@ server <- shinyServer(func = function(input, output, session) {
     )
   })
 
+  output$maze.down <- downloadHandler(
+    filename = "maze.pdf",
+    content = function(file) {
+      ggsave(filename = file)
+    }
+  )
+
   observe({
     n <- input$col*input$row
     updateSelectInput(session, inputId = "path.start", choices = 1:n, selected = 1)
@@ -95,24 +104,52 @@ server <- shinyServer(func = function(input, output, session) {
 
   output$graph <- renderPlot({
     g <- maze()
+    E(g)$color <- "grey"
+    V(g)$color <- input$vertex.color
+    V(g)$label <- V(g)
+
     if (input$path.show) {
       sp <- get.shortest.paths(g, from = input$path.start, to = input$path.end)$vpath[[1]]
 
-      V(g)$color <- input$vertex.color
       V(g)[sp]$color <- "red"
-
-      E(g)$color <- "grey"
       E(g, path = sp)$color <- "red"
-    } else {
-      V(g)$color <- input$vertex.color
-      E(g)$color <- "grey"
     }
-    plot(g,
-         edge.width = 5,
-         vertex.size = input$vertex.size,
-         vertex.label.cex = input$vertex.label.cex,
-         vertex.label.color = input$vertex.label.color)
+
+    plotGraph(
+      g,
+      layout = g$layout,
+      vertex.fill = V(g)$color,
+      vertex.color = V(g)$color,
+      vertex.size = input$vertex.size,
+      edge.color = E(g)$color,
+      lwd = 2
+    )
+
+    # if (input$path.show) {
+    #   sp <- get.shortest.paths(g, from = input$path.start, to = input$path.end)$vpath[[1]]
+    #
+    #   V(g)$color <- input$vertex.color
+    #   V(g)[sp]$color <- "red"
+    #
+    #   E(g)$color <- "grey"
+    #   E(g, path = sp)$color <- "red"
+    # } else {
+    #   V(g)$color <- input$vertex.color
+    #   E(g)$color <- "grey"
+    # }
+    # plot(g,
+    #      edge.width = 5,
+    #      vertex.size = input$vertex.size,
+    #      vertex.label.cex = input$vertex.label.cex,
+    #      vertex.label.color = input$vertex.label.color)
   })
+
+  output$graph.down <- downloadHandler(
+    filename = "graph.pdf",
+    content = function(file) {
+      ggsave(filename = file)
+    }
+  )
 
   output$author <- renderPrint({
     print("Diego Diez")

@@ -61,3 +61,25 @@ plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.siz
   }
   gg
 }
+
+plotGraph <- function(g, layout, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.curved = FALSE, vertex.label.color = "white", ...) {
+  m <- layout
+  d_n <- data.frame(x = m[,1], y = m[,2])
+  el <- get.edgelist(g)
+  n_i <- el[,1]
+  n_j <- el[,2]
+  d_e <- data.frame(source = n_i, target = n_j, x = m[n_i, 1], y = m[n_i, 2], xend = m[n_j, 1], yend = m[n_j, 2])
+  if (vertex.curved)
+    geom_edge <- geom_curve
+  else
+    geom_edge <- geom_segment
+  gg <- ggplot(d_e,aes(x=x, y=y)) + geom_edge(aes(xend=xend,yend=yend), color = edge.color, ...) + geom_point(aes(x=x,y=y), data = d_n, shape = 21, size = vertex.size, color = vertex.color, fill = vertex.fill, stroke = 1) + theme(axis.text = element_blank(), axis.ticks = element_blank(), panel.border = element_blank()) + xlab("") + ylab("")
+  #
+  if(labels) {
+    l <- V(g)$label
+    if(!is.null(l)) {
+      gg <- gg + geom_text(aes(x=x,y=y,label=l), data = d_n, color = vertex.label.color)
+    }
+  }
+  gg
+}
