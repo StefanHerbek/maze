@@ -41,7 +41,6 @@ plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.siz
   if (tile.number.show) {
     d <- expand.grid(x = 1:nc, y = 1:nr)
     d$index <- 1:(nc * nr)
-    print(d)
     gg <- gg + geom_text(data = d, mapping = aes(x=x,y=y,label=index), size = tile.number.size)
   }
 
