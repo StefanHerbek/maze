@@ -32,7 +32,11 @@ plot(s, layout = l)
 plotMaze(s, nrow = nc, ncol = nr)
 plotMaze(s, nrow = nc, ncol = nr, wall.size = 1)
 
-get.shortest.paths(s, 1, 9)$vpath
+sp <- get.shortest.paths(s, 1, 9)$vpath[[1]]
+
+E(s)$color <- "grey"
+E(s)[ path = sp ]
+E(s, path = sp)$color <- "red"
 plotMaze(s, nrow = nc, ncol = nr, wall.size = 1, tile.show = TRUE, tile.size = .1, path.show = TRUE)
 
 ##### test
