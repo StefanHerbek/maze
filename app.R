@@ -8,26 +8,32 @@ ui <- shinyUI(ui = {
   pageWithSidebar(
     headerPanel("Maze"),
     sidebarPanel(
-      sliderInput("row", label = "rows:", min = 2, max = 50, value = 10, step = 1),
-      sliderInput("col", label = "cols:", min = 2, max = 50, value = 10, step = 1),
+      h3("Maze parameters:"),
+      sliderInput("row", label = "# row:", min = 2, max = 50, value = 10, step = 1),
+      sliderInput("col", label = "# col:", min = 2, max = 50, value = 10, step = 1),
       selectInput("weightfunc", "weight function:", c("runif", "rnorm"), selected = "runif"),
-      sliderInput("wall.size", label = "wall.size", min = 1.0, max = 10.0, value = 5.0, step = .5),
-      checkboxInput("tile.number.show", "show tile number", value = FALSE),
-      sliderInput("tile.number.size", label = "tile.number.size", min = 0.1, max = 10, value = .1, step = .1),
-      checkboxInput("tile.show", "show tile", value = FALSE),
-      sliderInput("tile.size", label = "tile.size", min = 0.1, max = 5, value = .1, step = .1),
-      selectInput("tile.color", "tile.color:", c("white", "grey"), selected = "white"),
-      sliderInput("vertex.size", label = "vertex.size", min = 1, max = 50, value = 20, step = 1),
-      selectInput("vertex.color", "vertex.color:", c("black", "steelblue", "white"), selected = "black"),
-      sliderInput("vertex.label.cex", label = "vertex.label.cex", min = 0.1, max = 2, value = 1, step = .1),
-      selectInput("vertex.label.color", "vertex.label.color:", c("black", "red", "white"), selected = "white")
+      checkboxInput("path.show", "Show path", value = FALSE),
+      selectInput("path.start", "Start", choices = 1),
+      selectInput("path.end", "End", choices = 1),
+      h3("Plot parameters:"),
+      conditionalPanel(condition = "input.tabs == 'Maze'",
+        sliderInput("wall.size", label = "wall.size", min = 1.0, max = 10.0, value = 5.0, step = .5),
+        checkboxInput("tile.number.show", "show tile number", value = FALSE),
+        sliderInput("tile.number.size", label = "tile.number.size", min = 0.1, max = 10, value = 5, step = .1),
+        checkboxInput("tile.show", "show tile", value = FALSE),
+        sliderInput("tile.size", label = "tile.size", min = 0.1, max = 5, value = .1, step = .1),
+        selectInput("tile.color", "tile.color:", c("white", "grey"), selected = "white")
+      ),
+      conditionalPanel(condition = "input.tabs == 'Graph'",
+                       sliderInput("vertex.size", label = "vertex.size", min = 1, max = 50, value = 15, step = 1),
+                       selectInput("vertex.color", "vertex.color:", c("black", "steelblue", "white"), selected = "black"),
+                       sliderInput("vertex.label.cex", label = "vertex.label.cex", min = 0.1, max = 2, value = 1, step = .1),
+                       selectInput("vertex.label.color", "vertex.label.color:", c("black", "red", "white"), selected = "white")
+                       )
     ),
     mainPanel(
-      tabsetPanel(
+      tabsetPanel(id = "tabs",
         tabPanel("Maze",
-                 selectInput("path.start", "Start", choices = 1),
-                 selectInput("path.end", "End", choices = 1),
-                 checkboxInput("path.show", "Show path", value = FALSE),
                  plotOutput("maze", width = "600px", height = "600px")
                  ),
         tabPanel("Graph",
@@ -89,10 +95,21 @@ server <- shinyServer(func = function(input, output, session) {
 
   output$graph <- renderPlot({
     g <- maze()
+    if (input$path.show) {
+      sp <- get.shortest.paths(g, from = input$path.start, to = input$path.end)$vpath[[1]]
+
+      V(g)$color <- input$vertex.color
+      V(g)[sp]$color <- "red"
+
+      E(g)$color <- "grey"
+      E(g, path = sp)$color <- "red"
+    } else {
+      V(g)$color <- input$vertex.color
+      E(g)$color <- "grey"
+    }
     plot(g,
          edge.width = 5,
          vertex.size = input$vertex.size,
-         vertex.color = input$vertex.color,
          vertex.label.cex = input$vertex.label.cex,
          vertex.label.color = input$vertex.label.color)
   })
