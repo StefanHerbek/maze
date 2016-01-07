@@ -7,7 +7,6 @@ plot(g, layout = l)
 
 s <- mst(g, weights = rnorm(ecount(g)))
 plot(s, layout = l)
-
 plot(s, layout = l, vertex.shape = "square", vertex.size = 100, vertex.frame.color = "transparent")
 
 se <- sample(E(g), 1)
