@@ -43,11 +43,11 @@ ui <- shinyUI(ui = {
       tabsetPanel(id = "tabs",
         tabPanel("Maze",
                  plotOutput("plotmaze", width = "600px", height = "600px"),
-                 downloadButton("maze.down")
+                 downloadButton("maze.down", label = "")
                  ),
         tabPanel("Graph",
                  plotOutput("plotgraph", width = "600px", height = "600px"),
-                 downloadButton("graph.down")
+                 downloadButton("graph.down", label = "")
                  ),
         tabPanel("About",
                  h3("Author"),
@@ -85,34 +85,33 @@ server <- shinyServer(func = function(input, output, session) {
     })
   })
 
-  output$plotmaze <- renderPlot({
-    g <- maze()
-    input$update.plotmaze
+  plotmaze <- function(g) {
+    plotMaze(
+      g,
+      nrow = g$ncol,
+      ncol = g$nrow,
+      wall.size = input$wall.size,
+      tile.color = input$tile.color,
+      tile.show = input$tile.show,
+      tile.size = input$tile.size,
+      tile.number.show = input$tile.number.show,
+      tile.number.size = input$tile.number.size,
+      path.show = input$path.show,
+      path.start = input$path.start,
+      path.end = input$path.end
+    )
+  }
 
-    isolate({
-      plotMaze(
-        g,
-        #nrow = input$col,
-        #ncol = input$row,
-        nrow = g$ncol,
-        ncol = g$nrow,
-        wall.size = input$wall.size,
-        tile.color = input$tile.color,
-        tile.show = input$tile.show,
-        tile.size = input$tile.size,
-        tile.number.show = input$tile.number.show,
-        tile.number.size = input$tile.number.size,
-        path.show = input$path.show,
-        path.start = input$path.start,
-        path.end = input$path.end
-      )
-    })
+  output$plotmaze <- renderPlot({
+    input$update.plotmaze
+    g <- maze()
+    isolate(plotmaze(g))
   })
 
   output$maze.down <- downloadHandler(
     filename = "maze.pdf",
     content = function(file) {
-      ggsave(filename = file)
+      ggsave(filename = file, plot = plotmaze(maze()))
     }
   )
 
@@ -122,57 +121,39 @@ server <- shinyServer(func = function(input, output, session) {
     updateSelectInput(session, inputId = "path.end", choices = 1:n, selected = n)
   })
 
+  plotgraph <- function(g) {
+    E(g)$color <- "grey"
+    V(g)$color <- input$vertex.color
+    V(g)$label <- V(g)
+
+    if (input$path.show) {
+      sp <- get.shortest.paths(g, from = input$path.start, to = input$path.end)$vpath[[1]]
+
+      V(g)[sp]$color <- "red"
+      E(g, path = sp)$color <- "red"
+    }
+
+    plotGraph(
+      g,
+      layout = g$layout,
+      vertex.fill = V(g)$color,
+      vertex.color = V(g)$color,
+      vertex.size = input$vertex.size,
+      edge.color = E(g)$color,
+      lwd = 2
+    )
+  }
+
   output$plotgraph <- renderPlot({
-    g <- maze()
     input$update.plotgraph
-
-    isolate({
-      E(g)$color <- "grey"
-      V(g)$color <- input$vertex.color
-      V(g)$label <- V(g)
-
-      if (input$path.show) {
-        sp <- get.shortest.paths(g, from = input$path.start, to = input$path.end)$vpath[[1]]
-
-        V(g)[sp]$color <- "red"
-        E(g, path = sp)$color <- "red"
-      }
-
-      plotGraph(
-        g,
-        layout = g$layout,
-        vertex.fill = V(g)$color,
-        vertex.color = V(g)$color,
-        vertex.size = input$vertex.size,
-        edge.color = E(g)$color,
-        lwd = 2
-      )
-    })
-
-
-    # if (input$path.show) {
-    #   sp <- get.shortest.paths(g, from = input$path.start, to = input$path.end)$vpath[[1]]
-    #
-    #   V(g)$color <- input$vertex.color
-    #   V(g)[sp]$color <- "red"
-    #
-    #   E(g)$color <- "grey"
-    #   E(g, path = sp)$color <- "red"
-    # } else {
-    #   V(g)$color <- input$vertex.color
-    #   E(g)$color <- "grey"
-    # }
-    # plot(g,
-    #      edge.width = 5,
-    #      vertex.size = input$vertex.size,
-    #      vertex.label.cex = input$vertex.label.cex,
-    #      vertex.label.color = input$vertex.label.color)
+    g <- maze()
+    isolate(plotgraph(g))
   })
 
   output$graph.down <- downloadHandler(
     filename = "graph.pdf",
     content = function(file) {
-      ggsave(filename = file)
+      ggsave(filename = file, plot = plotgraph(maze()))
     }
   )
 
