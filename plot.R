@@ -36,7 +36,7 @@ plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.siz
     }
   }
   d <- do.call(rbind, d)
-  gg <- ggplot(d) + geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) + geom_segment(aes(x = x0, y = y0, xend = x1, yend = y1), size = d$size, lineend = "square") + xlim(0,nc + 1) + ylim(0,nr + 1) + theme_void() + guides(size = "none")
+  gg <- ggplot(d) + geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) + geom_segment(aes(x = x0, y = y0, xend = x1, yend = y1), size = d$size, lineend = "square") + xlim(0.5, nc + .5) + ylim(0.5, nr + .5) + theme_void() + guides(size = "none")
 
   if (tile.number.show) {
     d <- expand.grid(x = 1:nc, y = 1:nr)
