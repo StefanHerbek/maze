@@ -1,5 +1,8 @@
 library(shiny)
+library(shinyjs)
 library(igraph)
+library(RColorBrewer)
+library(viridis)
 source("plot.R")
 theme_set(.theme_base)
 igraph.options(vertex.label.family = "sans"
@@ -26,7 +29,10 @@ ui <- shinyUI(ui = {
         sliderInput("tile.number.size", label = "tile.number.size", min = 0.1, max = 10, value = 5, step = .1),
         checkboxInput("tile.show", "show tile", value = FALSE),
         sliderInput("tile.size", label = "tile.size", min = 0.1, max = 5, value = .1, step = .1),
-        selectInput("tile.color", "tile.color:", c("white", "grey"), selected = "white"),
+        #selectInput("tile.color", "tile.color:", c("white", "grey"), selected = "white"),
+        #colourInput("tile.color", "tile.color:", value = "white", showColour = "background"),
+        #colourInput("tile.color", "tile.color:", value = NULL, showColour = "background", palette = "limited", allowedCols = sub("..$", "", inferno(10))),
+        colourInput("tile.color", "tile.color:", value = NULL, showColour = "background", palette = "limited", allowedCols = brewer.pal(10, "Greys")),
         hr(),
         actionButton("update.plotmaze", "Update plot")
       ),
