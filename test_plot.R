@@ -11,6 +11,9 @@ nr <- 5
 nc <- 4
 
 nr <- 10
+nc <- 5
+
+nr <- 5
 nc <- 10
 
 nr <- 20
@@ -21,6 +24,10 @@ nc <- 20
 
 nr <- 50
 nc <- 50
+
+nr <- 50
+nc <- 25
+
 
 g <- graph.lattice(c(nr,nc))
 l <- layout.grid(g, width = nr, height = nc)
