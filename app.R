@@ -111,7 +111,8 @@ server <- shinyServer(func = function(input, output, session) {
   output$maze.down <- downloadHandler(
     filename = "maze.pdf",
     content = function(file) {
-      ggsave(filename = file, plot = plotmaze(maze()))
+      print(input$row/input$col)
+      ggsave(filename = file, plot = plotmaze(maze()), scale = input$row/input$col)
     }
   )
 
