@@ -2,8 +2,6 @@
 #' Plot a simple maze.
 #'
 #' @param g graph with maze structure.
-#' @param nrow number of rows in maze.
-#' @param ncol number of columna in maze.
 #' @param wall.size size of walls.
 #' @param tile.show logical; whether to show tile borders.
 #' @param tile.size size of tile borders.
@@ -19,9 +17,9 @@
 #'
 #' @examples
 #' NULL
-plotMaze <- function(g, nrow, ncol, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", tile.number.show = FALSE, tile.number.size = 5, path.show = FALSE, path.start = 1, path.end = nrow*ncol) {
-  nc <- ncol
-  nr <- nrow
+plotMaze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", tile.number.show = FALSE, tile.number.size = 5, path.show = FALSE, path.start = 1, path.end = nrow*ncol) {
+  nc <- g$ncol
+  nr <- g$nrow
   d <- list()
   for (i in 1:nr) {
     for (j in 2:nc) {

@@ -4,16 +4,12 @@
 \alias{plotMaze}
 \title{Plot a simple maze.}
 \usage{
-plotMaze(g, nrow, ncol, wall.size = 5, tile.show = FALSE, tile.size = 1,
+plotMaze(g, wall.size = 5, tile.show = FALSE, tile.size = 1,
   tile.color = "white", tile.number.show = FALSE, tile.number.size = 5,
   path.show = FALSE, path.start = 1, path.end = nrow * ncol)
 }
 \arguments{
 \item{g}{graph with maze structure.}
-
-\item{nrow}{number of rows in maze.}
-
-\item{ncol}{number of columna in maze.}
 
 \item{wall.size}{size of walls.}
 
