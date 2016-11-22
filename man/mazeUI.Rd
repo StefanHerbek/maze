@@ -2,14 +2,11 @@
 % Please edit documentation in R/app.R
 \name{mazeUI}
 \alias{mazeUI}
-\title{Shiny app for plotting mazes.}
+\title{Shiny app for plotting mazes}
 \usage{
 mazeUI()
 }
 \description{
-Shiny app for plotting mazes.
-}
-\examples{
-NULL
+Shiny app for plotting mazes
 }
 

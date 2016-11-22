@@ -8,8 +8,8 @@ Imports:
     igraph,
     ggplot2,
     shiny,
-    stats,
     colourpicker,
+    stats,
     viridis,
     RColorBrewer
 Suggests:
