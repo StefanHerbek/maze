@@ -24,7 +24,7 @@ ui <- shinyUI(ui = {
         #selectInput("tile.color", "tile.color:", c("white", "grey"), selected = "white"),
         #colourInput("tile.color", "tile.color:", value = "white", showColour = "background"),
         #colourInput("tile.color", "tile.color:", value = NULL, showColour = "background", palette = "limited", allowedCols = sub("..$", "", inferno(10))),
-        colourInput("tile.color", "tile.color:", value = NULL, showColour = "background", palette = "limited", allowedCols = brewer.pal(10, "Greys")),
+        colourInput("tile.color", "tile.color:", value = NULL, showColour = "background", palette = "limited", allowedCols = brewer.pal(9, "Greys")),
         hr(),
         actionButton("update.plotmaze", "Update plot")
       ),
