@@ -156,3 +156,5 @@ server <- shinyServer(func = function(input, output, session) {
 mazeUI <- function() {
   shinyApp(ui = ui, server = server)
 }
+
+shinyApp(ui = ui, server = server)
