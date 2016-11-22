@@ -145,5 +145,14 @@ server <- shinyServer(func = function(input, output, session) {
     })
 })
 
+
+#' Shiny app for plotting mazes.
+#'
+#' @return NULL
 #' @export
-mazeUI <- shinyApp(ui = ui, server = server)
+#'
+#' @examples
+#' NULL
+mazeUI <- function() {
+  shinyApp(ui = ui, server = server)
+}
