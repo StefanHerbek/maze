@@ -6,7 +6,7 @@
 \usage{
 plot_maze(g, wall.size = 5, tile.show = FALSE, tile.size = 1,
   tile.color = "white", tile.number.show = FALSE, tile.number.size = 5,
-  path.show = FALSE, path.start = 1, path.end = nrow * ncol)
+  path.show = FALSE, path.start = 1, path.end = g$nrow * g$ncol)
 }
 \arguments{
 \item{g}{graph with maze structure.}
