@@ -61,12 +61,12 @@ ui <- shinyUI(ui = {
 server <- shinyServer(func = function(input, output, session) {
   maze <- eventReactive(input$compute, {
     isolate({
-      maze_graph(input$row, input$col, input$weightfunc)
+      make_maze(input$row, input$col, input$weightfunc)
     })
   })
 
   plotmaze <- function(g) {
-    plotMaze(
+    plot_maze(
       g,
       wall.size = input$wall.size,
       tile.color = input$tile.color,

@@ -2,7 +2,7 @@ context("Maze generation")
 
 test_that("maze_graph works as expected", {
   set.seed(123)
-  g <- maze_graph(2, 2, "runif")
+  g <- make_maze(2, 2, "runif")
   expect_true(are_adjacent(g, 1, 2))
   expect_true(are_adjacent(g, 1, 3))
   expect_true(are_adjacent(g, 2, 4))
