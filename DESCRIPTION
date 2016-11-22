@@ -9,6 +9,7 @@ Imports:
     ggplot2,
     shiny,
     shinyjs,
+    stats,
     colourpicker,
     viridis,
     RColorBrewer

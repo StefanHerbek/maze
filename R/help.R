@@ -8,5 +8,6 @@
 #'
 #' @import ggplot2 igraph shiny viridis RColorBrewer
 #' @importFrom colourpicker colourInput
+#' @importFrom stats rnorm runif
 #'
 NULL
