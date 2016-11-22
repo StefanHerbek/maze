@@ -1,0 +1,21 @@
+---
+title: "maze"
+output: html_document
+---
+
+## Installation
+
+You can install `maze` from github with:
+
+```R
+devtools::install_github("ddiez/maze")
+```
+
+## Usage
+
+```{r cars}
+library(maze)
+set.seed(123)
+g <- make_maze(5, 5)
+plot_maze(g, tile.show = TRUE, path.show = TRUE)
+```
