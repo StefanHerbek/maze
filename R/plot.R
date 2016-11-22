@@ -54,12 +54,20 @@ plotMaze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.
     }
   }
   d <- do.call(rbind, d)
-  gg <- ggplot(d) + geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) + geom_segment(aes(x = x0, y = y0, xend = x1, yend = y1), size = d$size, lineend = "square") + xlim(0.5, nc + .5) + ylim(0.5, nr + .5) + theme_void() + guides(size = "none") + theme(aspect.ratio = nr/nc)
+
+  gg <- ggplot(d) +
+    geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) +
+    geom_segment(aes_string(x = "x0", y = "y0", xend = "x1", yend = "y1"), size = d$size, lineend = "square") +
+    xlim(0.5, nc + .5) +
+    ylim(0.5, nr + .5) +
+    theme_void() +
+    guides(size = "none") +
+    theme(aspect.ratio = nr/nc)
 
   if (tile.number.show) {
     d <- expand.grid(x = 1:nc, y = 1:nr)
     d$index <- 1:(nc * nr)
-    gg <- gg + geom_text(data = d, mapping = aes(x=x,y=y,label=index), size = tile.number.size)
+    gg <- gg + geom_text(data = d, mapping = aes_string(x = "x", y = "y", label = "index"), size = tile.number.size)
   }
 
   if (path.show) {
@@ -75,7 +83,7 @@ plotMaze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.
       p[[length(p) + 1]] <- data.frame(x = ci, y = ri)
     }
     p <- do.call(rbind, p)
-    gg <- gg + geom_path(data = p, mapping = aes(x = x, y = y), color = "red", lwd = 1, lineend = "round")
+    gg <- gg + geom_path(data = p, mapping = aes_string(x = "x", y = "y"), color = "red", lwd = 1, lineend = "round")
   }
   gg
 }
@@ -91,12 +99,27 @@ plotGraph <- function(g, layout, labels = TRUE, edge.color = "black", vertex.col
     geom_edge <- geom_curve
   else
     geom_edge <- geom_segment
-  gg <- ggplot(d_e,aes(x=x, y=y)) + geom_edge(aes(xend=xend,yend=yend), color = edge.color, ...) + geom_point(aes(x=x,y=y), data = d_n, shape = 21, size = vertex.size, color = vertex.color, fill = vertex.fill, stroke = 1) + theme(axis.text = element_blank(), axis.ticks = element_blank(), panel.border = element_blank()) + xlab("") + ylab("")
+  gg <- ggplot(d_e, aes_string(x = "x", y = "y")) +
+    geom_edge(aes_string(xend = "xend", yend = "yend"), color = edge.color, ...) +
+    geom_point(aes_string(x = "x", y = "y"),
+               data = d_n,
+               shape = 21,
+               size = vertex.size,
+               color = vertex.color,
+               fill = vertex.fill,
+               stroke = 1
+    ) +
+    theme(
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      panel.border = element_blank()
+    ) +
+    labs(x = "", y = "")
   #
   if(labels) {
     l <- V(g)$label
     if(!is.null(l)) {
-      gg <- gg + geom_text(aes(x=x,y=y,label=l), data = d_n, color = vertex.label.color)
+      gg <- gg + geom_text(aes_string(x = "x", y = "y", label = "l"), data = d_n, color = vertex.label.color)
     }
   }
   gg
