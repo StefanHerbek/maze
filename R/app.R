@@ -70,8 +70,6 @@ server <- shinyServer(func = function(input, output, session) {
   plotmaze <- function(g) {
     plotMaze(
       g,
-      nrow = g$ncol,
-      ncol = g$nrow,
       wall.size = input$wall.size,
       tile.color = input$tile.color,
       tile.show = input$tile.show,
