@@ -140,7 +140,9 @@ server <- shinyServer(func = function(input, output, session) {
     print("Diego Diez")
   })
 
-  output$session <- renderPrint({sessionInfo()})
+  output$session <- renderPrint({
+    #sessionInfo()
+    })
 })
 
 #' @export
