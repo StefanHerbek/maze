@@ -20,40 +20,8 @@
 plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", tile.number.show = FALSE, tile.number.size = 5, path.show = FALSE, path.start = 1, path.end = g$nrow * g$ncol) {
   nc <- g$ncol
   nr <- g$nrow
-  d <- list()
-  for (i in 1:nr) {
-    for (j in 2:nc) {
-      i1 <- i2 <- i
-      j1 <- j - 1
-      j2 <- j
-      v1 <- (i1 - 1) * nc + j1
-      v2 <- (i2 - 1) * nc + j2
-      #message(v1, ":", v2)
-      if (!are_adjacent(g, v1, v2))
-        d[[length(d) + 1]] <- data.frame(x0 = j - .5, x1 = j - .5, y0 = i - .5, y1 = i + .5, size = wall.size)
-      else
-        if (tile.show)
-          d[[length(d) + 1]] <- data.frame(x0 = j - .5, x1 = j - .5, y0 = i - .5, y1 = i + .5, size = tile.size)
-      #lines(x = c(j - .5, j - .5), y = c(i - .5, i + .5), col = "black", lwd = 5)
-    }
-  }
-  for (i in 2:nr) {
-    for (j in 1:nc) {
-      i1 <- i - 1
-      i2 <- i
-      j1 <- j2 <- j
-      v1 <- (i1 - 1) * nc + j1
-      v2 <- (i2 - 1) * nc + j2
-      #message(v1, ":", v2)
-      if (!are_adjacent(g, v1, v2))
-        d[[length(d) + 1]] <- data.frame(x0 = j - .5, x1 = j + .5, y0 = i - .5, y1 = i - .5, size = wall.size)
-      else
-        if (tile.show)
-          d[[length(d) + 1]] <- data.frame(x0 = j - .5, x1 = j + .5, y0 = i - .5, y1 = i - .5, size = tile.size)
-      #lines(x = c(j - .5, j + .5), y = c(i - .5, i - .5), col = "black", lwd = 5)
-    }
-  }
-  d <- do.call(rbind, d)
+
+  d <- graph_to_df(g)
 
   gg <- ggplot(d) +
     geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) +
