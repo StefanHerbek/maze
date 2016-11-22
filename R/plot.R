@@ -56,9 +56,9 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
   gg
 }
 
-plotGraph <- function(g, layout, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.curved = FALSE, vertex.label.color = "white", ...) {
+plot_graph <- function(g, layout, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.curved = FALSE, vertex.label.color = "white", ...) {
   m <- layout
-  d_n <- data.frame(x = m[,1], y = m[,2])
+  d_n <- data.frame(x = m[, 1], y = m[, 2])
   el <- get.edgelist(g)
   n_i <- el[,1]
   n_j <- el[,2]

@@ -112,7 +112,7 @@ server <- shinyServer(func = function(input, output, session) {
       E(g, path = sp)$color <- "red"
     }
 
-    plotGraph(
+    plot_graph(
       g,
       layout = g$layout,
       vertex.fill = V(g)$color,
