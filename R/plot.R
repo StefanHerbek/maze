@@ -21,7 +21,7 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
   nc <- g$ncol
   nr <- g$nrow
 
-  d <- graph_to_df(g)
+  d <- graph_to_df(g, tile.show = tile.show, tile.size = tile.size, wall.size = wall.size)
 
   gg <- ggplot(d) +
     geom_rect(xmin = 1 - .5, xmax = nc + .5, ymin = 1 - .5, ymax = nr + .5, color = "black", fill = tile.color, lwd = wall.size) +

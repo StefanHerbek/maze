@@ -30,7 +30,7 @@ make_maze <- function(nrow = 1, ncol = 1, weight.fun = "rnorm") {
 }
 
 # convert graph object to data.frame format.
-graph_to_df <- function(x, nrow = NULL, ncol = NULL) {
+graph_to_df <- function(x, nrow = NULL, ncol = NULL, tile.show = FALSE, tile.size = .5, wall.size = 1) {
   if (is.null(nrow))
     nrow <- x$nrow
 
@@ -41,13 +41,13 @@ graph_to_df <- function(x, nrow = NULL, ncol = NULL) {
     stop("some of the graph dimensions are NULL")
 
   d <- list()
-  for (i in 1:nr) {
-    for (j in 2:nc) {
+  for (i in 1:nrow) {
+    for (j in 2:ncol) {
       i1 <- i2 <- i
       j1 <- j - 1
       j2 <- j
-      v1 <- (i1 - 1) * nc + j1
-      v2 <- (i2 - 1) * nc + j2
+      v1 <- (i1 - 1) * ncol + j1
+      v2 <- (i2 - 1) * ncol + j2
       #message(v1, ":", v2)
       if (!are_adjacent(x, v1, v2))
         d[[length(d) + 1]] <- data.frame(x0 = j - .5, x1 = j - .5, y0 = i - .5, y1 = i + .5, size = wall.size)
@@ -57,13 +57,13 @@ graph_to_df <- function(x, nrow = NULL, ncol = NULL) {
       #lines(x = c(j - .5, j - .5), y = c(i - .5, i + .5), col = "black", lwd = 5)
     }
   }
-  for (i in 2:nr) {
-    for (j in 1:nc) {
+  for (i in 2:nrow) {
+    for (j in 1:ncol) {
       i1 <- i - 1
       i2 <- i
       j1 <- j2 <- j
-      v1 <- (i1 - 1) * nc + j1
-      v2 <- (i2 - 1) * nc + j2
+      v1 <- (i1 - 1) * ncol + j1
+      v2 <- (i2 - 1) * ncol + j2
       #message(v1, ":", v2)
       if (!are_adjacent(x, v1, v2))
         d[[length(d) + 1]] <- data.frame(x0 = j - .5, x1 = j + .5, y0 = i - .5, y1 = i - .5, size = wall.size)
