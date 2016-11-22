@@ -3,8 +3,9 @@ library(shinyjs)
 library(igraph)
 library(RColorBrewer)
 library(viridis)
+library(ggplot2)
 source("plot.R")
-theme_set(.theme_base)
+#theme_set(.theme_base)
 igraph.options(vertex.label.family = "sans"
                )
 
