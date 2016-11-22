@@ -1,12 +1,4 @@
-library(shiny)
-library(shinyjs)
-library(igraph)
-library(RColorBrewer)
-library(viridis)
-library(ggplot2)
-#theme_set(.theme_base)
-igraph.options(vertex.label.family = "sans"
-               )
+#igraph.options(vertex.label.family = "sans")
 
 ui <- shinyUI(ui = {
   pageWithSidebar(
