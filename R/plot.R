@@ -30,7 +30,7 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
     ylim(0.5, nr + .5) +
     theme_void() +
     guides(size = "none") +
-    theme(aspect.ratio = nr/nc)
+    theme(aspect.ratio = nr / nc)
 
   if (tile.number.show) {
     d <- expand.grid(x = 1:nc, y = 1:nr)
