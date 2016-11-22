@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' NULL
-plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", tile.number.show = FALSE, tile.number.size = 5, path.show = FALSE, path.start = 1, path.end = nrow*ncol) {
+plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile.color = "white", tile.number.show = FALSE, tile.number.size = 5, path.show = FALSE, path.start = 1, path.end = g$nrow * g$ncol) {
   nc <- g$ncol
   nr <- g$nrow
   d <- list()
