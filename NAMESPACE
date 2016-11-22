@@ -2,6 +2,7 @@
 
 export(plotMaze)
 import(RColorBrewer)
+import(colourpicker)
 import(ggplot2)
 import(igraph)
 import(shiny)

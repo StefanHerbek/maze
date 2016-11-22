@@ -9,6 +9,7 @@ Imports:
     ggplot2,
     shiny,
     shinyjs,
+    colourpicker,
     viridis,
     RColorBrewer
 License: MIT
