@@ -4,6 +4,13 @@ Title: A Simple Maze Plotting Tool
 Version: 0.1.0
 Authors@R: person("Diego", "Diez", email = "diego10ruiz@gmail.com", role = c("aut", "cre"))
 Description: Functions and simple shiny app to plot mazes in R
+Imports:
+    igraph,
+    ggplot2,
+    shiny,
+    shinyjs,
+    viridis,
+    RColorBrewer
 License: MIT
 Encoding: UTF-8
 LazyData: true
