@@ -9,7 +9,7 @@ ui <- shinyUI(ui = {
       sliderInput("col", label = "# col:", min = 2, max = 50, value = 10, step = 1),
       selectInput("weightfunc", "weight function:", c("runif", "rnorm"), selected = "runif"),
       hr(),
-      actionButton("maze", "Compute maze", icon = icon("cog", lib = "glyphicon")),
+      actionButton("compute", "Compute maze", icon = icon("cog", lib = "glyphicon")),
       h3("Plot parameters:"),
       checkboxInput("path.show", "Show path", value = FALSE),
       selectInput("path.start", "Start", choices = 1),
@@ -59,11 +59,9 @@ ui <- shinyUI(ui = {
 })
 
 server <- shinyServer(func = function(input, output, session) {
-  maze <- reactive({
-    input$maze
-
+  maze <- eventReactive(input$compute, {
     isolate({
-      make_graph(input$row, input$col, input$weightfunc)
+      maze_graph(input$row, input$col, input$weightfunc)
     })
   })
 
