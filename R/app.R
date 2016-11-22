@@ -4,7 +4,6 @@ library(igraph)
 library(RColorBrewer)
 library(viridis)
 library(ggplot2)
-source("plot.R")
 #theme_set(.theme_base)
 igraph.options(vertex.label.family = "sans"
                )
@@ -72,23 +71,7 @@ server <- shinyServer(func = function(input, output, session) {
     input$maze
 
     isolate({
-      nr <- input$row
-      nc <- input$col
-      g <- graph.lattice(c(nr, nc))
-      nv <- vcount(g)
-      ne <- ecount(g)
-      g$ncol <- nc
-      g$nrow <- nr
-
-      switch(input$weightfunc,
-             runif = wf <- runif,
-             rnorm = wf <- rnorm
-      )
-      w <- wf(ne)
-
-      s <- mst(g, weights = w, algorithm = "prim")
-      s$layout <- layout_on_grid(s, width = nr, height = nc)
-      s
+      make_graph(input$row, input$col, input$weightfunc)
     })
   })
 
