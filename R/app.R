@@ -145,4 +145,5 @@ server <- shinyServer(func = function(input, output, session) {
   output$session <- renderPrint({sessionInfo()})
 })
 
-shinyApp(ui = ui, server = server)
+#' @export
+mazeUI <- shinyApp(ui = ui, server = server)
