@@ -15,6 +15,3 @@ maze_graph <- function(nrow = 1, ncol = 1, weight.fun = "rnorm") {
   s$layout <- layout_on_grid(s, width = nrow, height = ncol)
   s
 }
-
-
-
