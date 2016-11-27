@@ -15,8 +15,8 @@ make_maze <- function(nrow = 1, ncol = 1, weight.fun = "rnorm") {
   weight.fun <- match.arg(weight.fun, c("rnorm", "runif"))
   g <- graph.lattice(c(nrow, ncol))
 
-  g$ncol <- ncol
-  g$nrow <- nrow
+  g$ncol <- nrow
+  g$nrow <- ncol
 
   switch(weight.fun,
          runif = wf <- runif,
