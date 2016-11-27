@@ -1,6 +1,5 @@
-#igraph.options(vertex.label.family = "sans")
-library(colourpicker)
 library(maze)
+
 ui <- shinyUI(ui = {
   pageWithSidebar(
     headerPanel("Maze"),
@@ -22,7 +21,7 @@ ui <- shinyUI(ui = {
         sliderInput("tile.number.size", label = "tile.number.size", min = 0.1, max = 10, value = 5, step = .1),
         checkboxInput("tile.show", "show tile", value = FALSE),
         sliderInput("tile.size", label = "tile.size", min = 0.1, max = 5, value = .1, step = .1),
-        colourInput("tile.color", "tile.color:", value = "white"),#, showColour = "background", palette = "limited", allowedCols = brewer.pal(9, "Greys")),
+        colourpicker::colourInput("tile.color", "tile.color:", showColour = "background", palette = "limited", allowedCols = brewer.pal(9, "Greys")),
         hr(),
         actionButton("update.plotmaze", "Update plot")
       ),
