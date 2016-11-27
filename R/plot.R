@@ -56,38 +56,68 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
   gg
 }
 
-plot_graph <- function(g, layout, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.curved = FALSE, vertex.label.color = "white", ...) {
+#' Plot a maze's graph.
+#'
+#' @param g graph with maze structure.
+#' @param layout layout (default taken from g$layout).
+#' @param labels logical; whether to plot node labels.
+#' @param edge.color color used for edges.
+#' @param vertex.color color used for node borders.
+#' @param vertex.fill color used for nodes.
+#' @param vertex.size node size.
+#' @param vertex.label.color color used for node labels.
+#' @param path.show logical; whether to show the path between two nodes.
+#' @param path.start path starting node.
+#' @param path.end path end node.
+#' @param ... extra arguments passed down to geom_segment().
+#'
+#' @return NULL
+#' @export
+#'
+plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.label.color = "white", path.show = FALSE, path.start = 1, path.end = vcount(g), ...) {
+  if (path.show) {
+    if (length(vertex.color) == 1)
+      vertex.color <- rep(vertex.color, vcount(g))
+    if (length(vertex.fill) == 1)
+      vertex.fill <- rep(vertex.fill, vcount(g))
+    if (length(edge.color) == 1)
+      edge.color <- rep(edge.color, ecount(g))
+
+    sp <- get.shortest.paths(g, from = path.start, to = path.end)$vpath[[1]]
+
+    vertex.color[sp] <- "red"
+    vertex.fill[sp] <- "red"
+    edge.color[E(g, path = sp)] <- "red"
+  }
+
+  if (is.null(layout))
+    layout <- g$layout
   m <- layout
   d_n <- data.frame(x = m[, 1], y = m[, 2])
+
   el <- get.edgelist(g)
   n_i <- el[,1]
   n_j <- el[,2]
   d_e <- data.frame(source = n_i, target = n_j, x = m[n_i, 1], y = m[n_i, 2], xend = m[n_j, 1], yend = m[n_j, 2])
-  if (vertex.curved)
-    geom_edge <- geom_curve
-  else
-    geom_edge <- geom_segment
+
   gg <- ggplot(d_e, aes_string(x = "x", y = "y")) +
-    geom_edge(aes_string(xend = "xend", yend = "yend"), color = edge.color, ...) +
-    geom_point(aes_string(x = "x", y = "y"),
-               data = d_n,
-               shape = 21,
-               size = vertex.size,
-               color = vertex.color,
-               fill = vertex.fill,
-               stroke = 1
-    ) +
-    theme(
-      axis.text = element_blank(),
-      axis.ticks = element_blank(),
-      panel.border = element_blank()
+    geom_segment(
+      aes_string(xend = "xend", yend = "yend"),
+      color = edge.color, ...) +
+    geom_point(
+      aes_string(x = "x", y = "y"),
+      data = d_n,
+      shape = 21,
+      size = vertex.size,
+      color = vertex.color,
+      fill = vertex.fill,
+      stroke = 1
     ) +
     labs(x = "", y = "")
   #
   if(labels) {
-    l <- V(g)$label
-    if(!is.null(l)) {
-      gg <- gg + geom_text(aes_string(x = "x", y = "y", label = "l"), data = d_n, color = vertex.label.color)
+    if(! is.null(V(g)$label)) {
+      gg <- gg + geom_text(aes_string(x = "x", y = "y"), label = V(g)$label, data = d_n, color = vertex.label.color)
     }
   }
   gg

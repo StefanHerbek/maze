@@ -2,6 +2,7 @@
 
 export(make_maze)
 export(mazeUI)
+export(plot_graph)
 export(plot_maze)
 import(RColorBrewer)
 import(ggplot2)

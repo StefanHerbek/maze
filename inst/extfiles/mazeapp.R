@@ -99,24 +99,15 @@ server <- shinyServer(func = function(input, output, session) {
   })
 
   plotgraph <- function(g) {
-    E(g)$color <- "grey"
-    V(g)$color <- input$vertex.color
-    V(g)$label <- V(g)
-
-    if (input$path.show) {
-      sp <- get.shortest.paths(g, from = input$path.start, to = input$path.end)$vpath[[1]]
-
-      V(g)[sp]$color <- "red"
-      E(g, path = sp)$color <- "red"
-    }
-
     plot_graph(
       g,
-      layout = g$layout,
-      vertex.fill = V(g)$color,
-      vertex.color = V(g)$color,
+      vertex.fill = input$vertex.color,
+      vertex.color = input$vertex.color,
       vertex.size = input$vertex.size,
-      edge.color = E(g)$color,
+      edge.color = "grey",
+      path.show = input$path.show,
+      path.start = input$path.start,
+      path.end = input$path.end,
       lwd = 2
     )
   }
