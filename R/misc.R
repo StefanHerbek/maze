@@ -25,6 +25,7 @@ make_maze <- function(nrow = 1, ncol = 1, weight.fun = "rnorm") {
   w <- wf(ecount(g))
 
   s <- mst(g, weights = w, algorithm = "prim")
+  V(s)$labels <- seq_len(vcount(s))
   s$layout <- layout_on_grid(s, width = nrow, height = ncol)
   s
 }

@@ -117,8 +117,8 @@ plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", ve
     labs(x = "", y = "") +
     theme(aspect.ratio = g$nrow /  g$ncol, panel.border = element_blank())
   if(labels) {
-    if(! is.null(V(g)$label)) {
-      gg <- gg + geom_text(aes_string(x = "x", y = "y"), label = V(g)$label, data = d_n, color = vertex.label.color)
+    if(! is.null(V(g)$labels)) {
+      gg <- gg + geom_text(aes_string(x = "x", y = "y"), label = V(g)$labels, data = d_n, color = vertex.label.color)
     }
   }
   gg
