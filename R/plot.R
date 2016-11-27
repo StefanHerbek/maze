@@ -30,7 +30,7 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
     ylim(0.5, nr + .5) +
     theme_void() +
     guides(size = "none") +
-    theme(aspect.ratio = nr / nc)
+    theme(aspect.ratio = nr / nc, panel.border = element_blank())
 
   if (tile.number.show) {
     d <- expand.grid(x = 1:nc, y = 1:nr)
@@ -113,8 +113,9 @@ plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", ve
       fill = vertex.fill,
       stroke = 1
     ) +
-    labs(x = "", y = "")
-  #
+    theme_void() +
+    labs(x = "", y = "") +
+    theme(aspect.ratio = g$nrow /  g$ncol, panel.border = element_blank())
   if(labels) {
     if(! is.null(V(g)$label)) {
       gg <- gg + geom_text(aes_string(x = "x", y = "y"), label = V(g)$label, data = d_n, color = vertex.label.color)
