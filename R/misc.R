@@ -38,7 +38,7 @@ graph_to_df <- function(x, nrow = NULL, ncol = NULL, tile.show = FALSE, tile.siz
     ncol <- x$ncol
 
   if (is.null(nrow) || is.null(ncol))
-    stop("some of the graph dimensions are NULL")
+    stop("some of the maze dimensions are NULL")
 
   d <- list()
   for (i in 1:nrow) {
