@@ -1,5 +1,5 @@
 library(maze)
-
+palcol <- brewer.pal(9, "Greys")
 ui <- shinyUI(ui = {
   pageWithSidebar(
     headerPanel("Maze"),
@@ -21,15 +21,16 @@ ui <- shinyUI(ui = {
         sliderInput("tile.number.size", label = "tile.number.size", min = 0.1, max = 10, value = 5, step = .1),
         checkboxInput("tile.show", "show tile", value = FALSE),
         sliderInput("tile.size", label = "tile.size", min = 0.1, max = 5, value = .1, step = .1),
-        colourpicker::colourInput("tile.color", "tile.color:", showColour = "background", palette = "limited", allowedCols = brewer.pal(9, "Greys")),
+        colourpicker::colourInput("tile.color", "tile.color:", value = palcol[3], showColour = "background", palette = "limited", allowedCols = palcol),
         hr(),
         actionButton("update.plotmaze", "Update plot")
       ),
       conditionalPanel(condition = "input.tabs == 'Graph'",
         sliderInput("vertex.size", label = "vertex.size", min = 1, max = 50, value = 15, step = 1),
-        selectInput("vertex.color", "vertex.color:", c("black", "steelblue", "grey"), selected = "black"),
+        colourpicker::colourInput("vertex.color", "vertex.color:", value = palcol[9], showColour = "background", palette = "limited", allowedCols = palcol),
         sliderInput("vertex.label.cex", label = "vertex.label.cex", min = 0.1, max = 2, value = 1, step = .1),
-        selectInput("vertex.label.color", "vertex.label.color:", c("black", "red", "white"), selected = "white"),
+        colourpicker::colourInput("vertex.label.color", "vertex.label.color:", value = palcol[1], showColour = "background", palette = "limited", allowedCols = palcol),
+        colourpicker::colourInput("edge.color", "edge.color:", value = palcol[3], showColour = "background", palette = "limited", allowedCols = palcol),
         hr(),
         actionButton("update.plotgraph", "Update plot")
       )
@@ -103,7 +104,8 @@ server <- shinyServer(func = function(input, output, session) {
       vertex.fill = input$vertex.color,
       vertex.color = input$vertex.color,
       vertex.size = input$vertex.size,
-      edge.color = "grey",
+      vertex.label.color = input$vertex.label.color,
+      edge.color = input$edge.color,
       path.show = input$path.show,
       path.start = input$path.start,
       path.end = input$path.end,
