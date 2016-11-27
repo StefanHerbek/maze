@@ -6,8 +6,8 @@
 \usage{
 plot_graph(g, layout = NULL, labels = TRUE, edge.color = "black",
   vertex.color = "black", vertex.fill = "white", vertex.size = 15,
-  vertex.label.color = "white", path.show = FALSE, path.start = 1,
-  path.end = vcount(g), ...)
+  vertex.label.color = "white", vertex.label.size = 1, path.show = FALSE,
+  path.start = 1, path.end = vcount(g), ...)
 }
 \arguments{
 \item{g}{graph with maze structure.}

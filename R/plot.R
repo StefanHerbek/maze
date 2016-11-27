@@ -74,7 +74,7 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
 #' @return NULL
 #' @export
 #'
-plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.label.color = "white", path.show = FALSE, path.start = 1, path.end = vcount(g), ...) {
+plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.label.color = "white", vertex.label.size = 1, path.show = FALSE, path.start = 1, path.end = vcount(g), ...) {
   if (path.show) {
     if (length(vertex.color) == 1)
       vertex.color <- rep(vertex.color, vcount(g))
@@ -118,7 +118,7 @@ plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", ve
     theme(aspect.ratio = g$nrow /  g$ncol, panel.border = element_blank())
   if(labels) {
     if(! is.null(V(g)$labels)) {
-      gg <- gg + geom_text(aes_string(x = "x", y = "y"), label = V(g)$labels, data = d_n, color = vertex.label.color)
+      gg <- gg + geom_text(aes_string(x = "x", y = "y"), label = V(g)$labels, data = d_n, color = vertex.label.color, size = vertex.label.size)
     }
   }
   gg
