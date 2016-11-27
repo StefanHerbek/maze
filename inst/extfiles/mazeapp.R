@@ -1,5 +1,6 @@
 #igraph.options(vertex.label.family = "sans")
 library(colourpicker)
+library(maze)
 ui <- shinyUI(ui = {
   pageWithSidebar(
     headerPanel("Maze"),
