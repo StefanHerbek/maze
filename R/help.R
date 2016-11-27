@@ -6,7 +6,7 @@
 #' @aliases maze
 #' @docType package
 #'
-#' @import ggplot2 igraph shiny viridis RColorBrewer
+#' @import ggplot2 igraph shiny RColorBrewer
 #' @importFrom colourpicker colourInput
 #' @importFrom stats rnorm runif
 #'

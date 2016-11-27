@@ -10,7 +10,6 @@ Imports:
     shiny,
     colourpicker,
     stats,
-    viridis,
     RColorBrewer
 Suggests:
     testthat
