@@ -6,7 +6,7 @@
 \usage{
 plot_graph(g, layout = NULL, labels = TRUE, edge.color = "black",
   vertex.color = "black", vertex.fill = "white", vertex.size = 15,
-  vertex.label.color = "white", vertex.label.size = 1, path.show = FALSE,
+  vertex.label.color = "black", vertex.label.size = 5, path.show = FALSE,
   path.start = 1, path.end = vcount(g), ...)
 }
 \arguments{
@@ -25,6 +25,8 @@ plot_graph(g, layout = NULL, labels = TRUE, edge.color = "black",
 \item{vertex.size}{node size.}
 
 \item{vertex.label.color}{color used for node labels.}
+
+\item{vertex.label.size}{size used for node labels.}
 
 \item{path.show}{logical; whether to show the path between two nodes.}
 
