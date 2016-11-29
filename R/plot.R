@@ -66,6 +66,7 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
 #' @param vertex.fill color used for nodes.
 #' @param vertex.size node size.
 #' @param vertex.label.color color used for node labels.
+#' @param vertex.label.size size used for node labels.
 #' @param path.show logical; whether to show the path between two nodes.
 #' @param path.start path starting node.
 #' @param path.end path end node.
@@ -74,7 +75,7 @@ plot_maze <- function(g, wall.size = 5.0, tile.show = FALSE, tile.size = 1, tile
 #' @return NULL
 #' @export
 #'
-plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.label.color = "white", vertex.label.size = 1, path.show = FALSE, path.start = 1, path.end = vcount(g), ...) {
+plot_graph <- function(g, layout = NULL, labels = TRUE, edge.color = "black", vertex.color = "black", vertex.fill = "white", vertex.size = 15, vertex.label.color = "black", vertex.label.size = 5, path.show = FALSE, path.start = 1, path.end = vcount(g), ...) {
   if (path.show) {
     if (length(vertex.color) == 1)
       vertex.color <- rep(vertex.color, vcount(g))
