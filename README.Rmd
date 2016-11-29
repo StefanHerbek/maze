@@ -3,6 +3,9 @@ title: "maze"
 output: html_document
 ---
 
+[![Build Status](https://travis-ci.org/ddiez/maze.svg?branch=master)](https://travis-ci.org/ddiez/maze) 
+[![codecov](https://codecov.io/gh/ddiez/maze/branch/master/graph/badge.svg)](https://codecov.io/gh/ddiez/maze)
+
 ## Installation
 
 You can install `maze` from github with:
