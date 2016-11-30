@@ -4,5 +4,5 @@
 #' @export
 #'
 mazeUI <- function() {
-  runApp(system.file("shiny/app.R", package = "maze"))
+  runApp(system.file("shiny/maze/app.R", package = "maze"))
 }
