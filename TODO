@@ -1,0 +1,5 @@
+o Fix issues with maze orientation and coherence in code.
+o Are 1x1 (one room) mazes valid? If yes, then fix code (now gives error).
+o Move plot controls to plotting area (maybe use inputPanel).
+o Optimize number and use of plot controls (simplify).
+o Add author information in About tab.
