@@ -126,12 +126,12 @@ server <- shinyServer(func = function(input, output, session) {
   )
 
   output$author <- renderPrint({
-    print("Diego Diez")
+    cat("Diego Diez")
   })
 
   output$session <- renderPrint({
-    #sessionInfo()
-    })
+    sessionInfo()
+  })
 })
 
 shinyApp(ui = ui, server = server)
