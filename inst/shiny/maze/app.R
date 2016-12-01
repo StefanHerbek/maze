@@ -1,6 +1,5 @@
 library(maze)
-library(RColorBrewer)
-palcol <- c(brewer.pal(9, "Greys"), brewer.pal(8, "Dark2"))
+palcol <- c(RColorBrewer::brewer.pal(9, "Greys"), RColorBrewer::brewer.pal(8, "Dark2"))
 ui <- shinyUI(ui = {
   pageWithSidebar(
     headerPanel("Maze"),
@@ -87,7 +86,7 @@ server <- shinyServer(func = function(input, output, session) {
     filename = "maze.pdf",
     content = function(file) {
       print(input$row/input$col)
-      ggsave(filename = file, plot = plotmaze(maze()), scale = input$row/input$col)
+      ggplot2::ggsave(filename = file, plot = plotmaze(maze()), scale = input$row/input$col)
     }
   )
 
@@ -122,7 +121,7 @@ server <- shinyServer(func = function(input, output, session) {
   output$graph.down <- downloadHandler(
     filename = "graph.pdf",
     content = function(file) {
-      ggsave(filename = file, plot = plotgraph(maze()))
+      ggplot2::ggsave(filename = file, plot = plotgraph(maze()))
     }
   )
 
