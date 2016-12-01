@@ -1,4 +1,5 @@
 library(maze)
+library(RColorBrewer)
 palcol <- c(brewer.pal(9, "Greys"), brewer.pal(8, "Dark2"))
 ui <- shinyUI(ui = {
   pageWithSidebar(
