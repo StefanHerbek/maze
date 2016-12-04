@@ -1,6 +1,6 @@
 ---
 title: "maze"
-output: html_document
+output: github_document
 ---
 
 [![Build Status](https://travis-ci.org/ddiez/maze.svg?branch=master)](https://travis-ci.org/ddiez/maze) 
@@ -16,7 +16,7 @@ devtools::install_github("ddiez/maze")
 
 ## Usage
 
-```{r cars}
+```{r maze}
 library(maze)
 set.seed(123)
 g <- make_maze(5, 5)
