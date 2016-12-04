@@ -23,3 +23,8 @@ plot_maze(g, tile.show = TRUE, path.show = TRUE)
 ```
 
 ![](README_files/figure-markdown_github/maze-1.png)
+
+Try it!
+-------
+
+Maze is mainly a toy project for me to learn stuff, and a work in progress. You can try a live version [here](https://ddiez.shinyapps.io/maze/).
