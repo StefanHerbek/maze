@@ -126,7 +126,8 @@ server <- shinyServer(func = function(input, output, session) {
   )
 
   output$author <- renderPrint({
-    cat("Diego Diez")
+    cat("Diego Diez\n")
+    cat("https://github.com/ddiez/maze")
   })
 
   output$session <- renderPrint({
