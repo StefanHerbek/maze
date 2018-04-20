@@ -1,10 +1,11 @@
 maze
 ================
 
-[![Build Status](https://travis-ci.org/ddiez/maze.svg?branch=master)](https://travis-ci.org/ddiez/maze) [![codecov](https://codecov.io/gh/ddiez/maze/branch/master/graph/badge.svg)](https://codecov.io/gh/ddiez/maze)
+[![Build
+Status](https://travis-ci.org/ddiez/maze.svg?branch=master)](https://travis-ci.org/ddiez/maze)
+[![codecov](https://codecov.io/gh/ddiez/maze/branch/master/graph/badge.svg)](https://codecov.io/gh/ddiez/maze)
 
-Installation
-------------
+## Installation
 
 You can install `maze` from github with:
 
@@ -12,8 +13,7 @@ You can install `maze` from github with:
 devtools::install_github("ddiez/maze")
 ```
 
-Usage
------
+## Usage
 
 ``` r
 library(maze)
@@ -22,9 +22,10 @@ g <- make_maze(5, 5)
 plot_maze(g, tile.show = TRUE, path.show = TRUE)
 ```
 
-![](README_files/figure-markdown_github/maze-1.png)
+![](README_files/figure-gfm/maze-1.png)<!-- -->
 
-Try it!
--------
+## Try it\!
 
-Maze is mainly a toy project for me to learn stuff, and a work in progress. You can try a live version [here](https://ddiez.shinyapps.io/maze/).
+Maze is mainly a toy project for me to learn stuff, and a work in
+progress. You can try a live version
+[here](https://ddiez.shinyapps.io/maze/).

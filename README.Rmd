@@ -16,7 +16,7 @@ devtools::install_github("ddiez/maze")
 
 ## Usage
 
-```{r maze}
+```{r maze, fig.height=5, fig.width=5}
 library(maze)
 set.seed(123)
 g <- make_maze(5, 5)
