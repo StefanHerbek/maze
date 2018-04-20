@@ -39,4 +39,3 @@ plot_graph(g, layout = NULL, labels = TRUE, edge.color = "black",
 \description{
 Plot a maze's graph.
 }
-

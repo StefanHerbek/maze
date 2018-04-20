@@ -2,10 +2,9 @@
 % Please edit documentation in R/help.R
 \docType{package}
 \name{maze-package}
-\alias{maze}
 \alias{maze-package}
+\alias{maze}
 \title{A Simple Maze Plotting Tool}
 \description{
 A Simple Maze Plotting Tool
 }
-

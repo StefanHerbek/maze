@@ -35,4 +35,3 @@ Plot a simple maze.
 \examples{
 NULL
 }
-

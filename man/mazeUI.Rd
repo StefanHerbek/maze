@@ -9,4 +9,3 @@ mazeUI()
 \description{
 Shiny app for plotting mazes
 }
-

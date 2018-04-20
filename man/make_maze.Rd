@@ -22,4 +22,3 @@ Generate a square maze of the specified dimentions using a specified weight func
 \examples{
 make_maze(2, 2)
 }
-
