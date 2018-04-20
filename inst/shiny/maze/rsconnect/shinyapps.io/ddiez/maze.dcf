@@ -1,10 +1,12 @@
 name: maze
 title: maze
+username:
 account: ddiez
 server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
 appId: 141448
-bundleId: 631927
+bundleId: 1328648
 url: https://ddiez.shinyapps.io/maze/
-when: 1480606068.08664
+when: 1524191935.82144
 asMultiple: FALSE
 asStatic: FALSE
