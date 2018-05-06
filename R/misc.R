@@ -30,6 +30,42 @@ make_maze <- function(nrow = 1, ncol = 1, weight.fun = "rnorm") {
   s
 }
 
+create_square_maze <- function(nrow = 3, ncol = 3) {
+  g <- create_lattice(c(nrow, ncol))
+  ne <- g %>% activate(edges) %>% as_tibble() %>% nrow()
+  w <- rnorm(ne)
+  g <- g %>% morph(to_minimum_spanning_tree, weights = w) %>% crystallize()
+  g[["graph"]][[1]]
+}
+
+
+plot_maze2 <- function(x) {
+  UseMethod("plot_maze2")
+}
+
+plot_maze2.layout_igraph <- function(x) {
+  ggraph(x) + geom_edge_link()
+}
+
+plot_maze2.tbl_graph <- function(x) {
+  l <- create_layout(x, "grid")
+  plot_maze2(l)
+}
+
+plot_graph2 <- function(x) {
+  UseMethod("plot_graph2")
+}
+
+plot_graph2.layout_igraph <- function(x) {
+  ggraph(x) + geom_edge_link() + geom_node_point() + coord_fixed() + theme_graph()
+}
+
+plot_graph2.tbl_graph <- function(x) {
+  l <- create_layout(x, "grid")
+  plot_graph2(l)
+}
+
+
 # convert graph object to data.frame format.
 graph_to_df <- function(x, nrow = NULL, ncol = NULL, tile.show = FALSE, tile.size = .5, wall.size = 1) {
   if (is.null(nrow))
