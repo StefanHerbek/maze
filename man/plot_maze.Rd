@@ -5,8 +5,9 @@
 \title{Plot a simple maze.}
 \usage{
 plot_maze(g, wall.size = 5, tile.show = FALSE, tile.size = 1,
-  tile.color = "white", tile.number.show = FALSE, tile.number.size = 5,
-  path.show = FALSE, path.start = 1, path.end = vcount(g))
+  tile.color = "white", tile.number.show = FALSE,
+  tile.number.size = 5, path.show = FALSE, path.start = 1,
+  path.end = vcount(g))
 }
 \arguments{
 \item{g}{graph with maze structure.}
